@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/usr/src/app:cached
+    ports:
+      - 4000:4000
+      - 5958:5958
+      - 9229:9229
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.2.3
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb:
+  mongodb_config:
