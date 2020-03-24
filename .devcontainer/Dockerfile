@@ -5,4 +5,6 @@ WORKDIR /usr/src/app
 RUN \
   apk add \
   build-base \
-  git
+  git \
+  vim \
+  openssh
